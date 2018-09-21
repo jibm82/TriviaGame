@@ -9,6 +9,7 @@ var app = {
     this.bindAnswersClick();
     this.bindPlayClick();
     this.bindSoundControlClick();
+    this.bindAnimation();
   },
 
   bindAnswersClick: function() {
@@ -70,6 +71,29 @@ var app = {
       $(this)
         .find("span")
         .text(text);
+    });
+  },
+
+  bindAnimation() {
+    $(document).on("mousemove", function(e) {
+      var ax = -($(window).innerWidth() / 2 - e.pageX) / 30;
+      var ay = ($(window).innerHeight() / 2 - e.pageY) / 80;
+      $("main").attr(
+        "style",
+        "transform: rotateY(" +
+          ax +
+          "deg) rotateX(" +
+          ay +
+          "deg);-webkit-transform: rotateY(" +
+          ax +
+          "deg) rotateX(" +
+          ay +
+          "deg);-moz-transform: rotateY(" +
+          ax +
+          "deg) rotateX(" +
+          ay +
+          "deg)"
+      );
     });
   },
 

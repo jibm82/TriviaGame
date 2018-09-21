@@ -15,8 +15,11 @@ body {
 }
 
 main {
+  backface-visibility: hidden;
   background: #fff;
   padding: 8px;
+  transform: translateZ(100);
+  transform-style: preserve-3d;
 }
 
 h2 {
@@ -27,12 +30,15 @@ h2 {
 
 .cover-container {
   max-width: 400px;
+  perspective: 2000px;
+  transform-style: preserve-3d;
 }
 
 .container {
   border-radius: 10px;
   background: #111 url("../images/connectwork.png");
   padding: 20px;
+  transform-style: preserve-3d;
 }
 
 /* Sound control styles */
