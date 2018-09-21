@@ -76,8 +76,17 @@ var app = {
   },
 
   setQuestions: function() {
-    this.questions = questions;
+    var questionIndexes = [];
+    this.questions = [];
     this.currentQuestionIndex = 0;
+
+    while (questionIndexes.length < 10) {
+      var randomIndex = Math.floor(Math.random() * questions.length);
+      if (!questionIndexes.includes(randomIndex)) {
+        questionIndexes.push(randomIndex);
+        this.questions.push(questions[randomIndex]);
+      }
+    }
   },
 
   displayCurrentQuestion: function() {
