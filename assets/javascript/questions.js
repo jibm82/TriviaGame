@@ -102,5 +102,86 @@ var questions = [
       { id: "c", answer: "Monkey" }
     ],
     correctAnswerId: "b"
+  },
+  {
+    question: 'According to Kermit the Frog, "Is not easy being" what?',
+    answers: [
+      { id: "a", answer: "Green" },
+      { id: "b", answer: "Gorgeous" },
+      { id: "c", answer: "Goth" }
+    ],
+    correctAnswerId: "a"
+  },
+  {
+    question: "What is the largest planet in our solar system?",
+    answers: [
+      { id: "a", answer: "Saturn" },
+      { id: "b", answer: "Jupiter" },
+      { id: "c", answer: "Mars" }
+    ],
+    correctAnswerId: "b"
+  },
+  {
+    question: "What term was given to trashy tabloid news of the early 20th century?",
+    answers: [
+      { id: "a", answer: "Purple press" },
+      { id: "b", answer: "Red ink" },
+      { id: "c", answer: "Yellow journalism" }
+    ],
+    correctAnswerId: "c"
+  },
+  {
+    question: "The tiny country of Liechtenstein borders what two nations?",
+    answers: [
+      { id: "a", answer: "France / Germany" },
+      { id: "b", answer: "Austria / Switzerland" },
+      { id: "c", answer: "Belgium / Netherlands" }
+    ],
+    correctAnswerId: "b"
+  },
+  {
+    question: 'What does "brimstone", as mentioned in the Bible, refers to?',
+    answers: [
+      { id: "a", answer: "Granite" },
+      { id: "b", answer: "Sulfur" },
+      { id: "c", answer: "Lava" }
+    ],
+    correctAnswerId: "b"
+  },
+  {
+    question: 'The "Back to the Future" movie trilogy spans how long a period of time?',
+    answers: [
+      { id: "a", answer: "130 years" },
+      { id: "b", answer: "60 years" },
+      { id: "c", answer: "100 years" }
+    ],
+    correctAnswerId: "a"
+  },
+  {
+    question: "In a deck of cards, which king is holding an axe and facing sideways?",
+    answers: [
+      { id: "a", answer: "King of Clubs" },
+      { id: "b", answer: "King of Hearts" },
+      { id: "c", answer: "King of Diamonds" }
+    ],
+    correctAnswerId: "c"
+  },
+  {
+    question: "In cookbooks, maceration tipically means doing what to food?",
+    answers: [
+      { id: "a", answer: "Slicing it" },
+      { id: "b", answer: "Searing it" },
+      { id: "c", answer: "Softening it" }
+    ],
+    correctAnswerId: "c"
+  },
+  {
+    question: "In which movie does the bootstrap paradox play a key role?",
+    answers: [
+      { id: "a", answer: "12 Monkeys" },
+      { id: "b", answer: "Alien" },
+      { id: "c", answer: "Gravity" }
+    ],
+    correctAnswerId: "a"
   }
 ];
