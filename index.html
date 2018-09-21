@@ -14,19 +14,22 @@
 </head>
 
 <body>
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-    </header>
-
-    <main role="main" class="inner cover mb-auto">
+  <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
+    <main role="main" class="mt-auto mb-auto">
       <div class="container">
         <div id="question-container">
-          <h2 id="question"></h2>
-          <div id="hexagon">
-            <div id="hexagon-text"></div>
+          <h2 id="question">Trivia Time</h2>
+          <div id="hexagon" class="d-flex flex-column">
+            <div id="hexagon-text" class="mt-auto mb-auto"></div>
           </div>
         </div>
-        <section id="answers"></section>
+        <section id="answers">
+          <h4 class="answer">Answer each question before time runs out</h4>
+        </section>
+        <section id="game-result" style="display:none"></section>
+        <section id="game-controls">
+          <button id="play-game" class="btn btn-dark">Play the game</button>
+        </section>
       </div>
     </main>
   </div>

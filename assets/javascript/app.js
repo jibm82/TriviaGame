@@ -3,12 +3,12 @@ var app = {
     correct: new Audio("assets/sounds/correct.mp3"),
     incorrect: new Audio("assets/sounds/incorrect.wav")
   },
-  soundEnabled: true,
+  questionsPerGame: 10,
 
   new: function() {
     this.bindAnswersClick();
+    this.bindPlayClick();
     this.bindSoundControlClick();
-    this.reset();
   },
 
   bindAnswersClick: function() {
@@ -20,11 +20,13 @@ var app = {
       if (answerId === app.correctAnswerId) {
         app.playSound(true);
         $(this).addClass("btn-success");
-        app.displayAnswer("right");
+        $("#hexagon-text").text("Correct");
+        app.displayAnswer("correct");
       } else {
         app.playSound(false);
         $(this).addClass("btn-danger");
-        app.displayAnswer("wrong");
+        app.displayAnswer("incorrect");
+        $("#hexagon-text").text("You are wrong");
       }
     });
   },
@@ -37,6 +39,13 @@ var app = {
         app.sounds.incorrect.play();
       }
     }
+  },
+
+  bindPlayClick: function() {
+    $("#play-game").click(function() {
+      $(this).text("Play again");
+      app.reset();
+    });
   },
 
   bindSoundControlClick: function() {
@@ -65,10 +74,13 @@ var app = {
   },
 
   reset: function() {
-    this.questionStats = {
-      right: 0,
-      timeout: 0,
-      wrong: 0
+    $("#answers").show();
+    $("#game-controls, #game-result").hide();
+
+    this.gameStats = {
+      correct: 0,
+      incorrect: 0,
+      timeout: 0
     };
 
     this.setQuestions();
@@ -80,7 +92,7 @@ var app = {
     this.questions = [];
     this.currentQuestionIndex = 0;
 
-    while (questionIndexes.length < 10) {
+    while (questionIndexes.length < this.questionsPerGame) {
       var randomIndex = Math.floor(Math.random() * questions.length);
       if (!questionIndexes.includes(randomIndex)) {
         questionIndexes.push(randomIndex);
@@ -113,10 +125,10 @@ var app = {
   displayAnswer: function(event) {
     clearInterval(this.countdownInterval);
 
-    this.questionStats[event]++;
+    this.gameStats[event]++;
     this.currentQuestionIndex++;
 
-    if (event !== "right") {
+    if (event !== "correct") {
       this.revealCorrectAnswer();
     }
 
@@ -130,21 +142,69 @@ var app = {
 
   afterDisplayAnswer: function() {
     if (app.currentQuestionIndex === app.questions.length) {
-      alert("Game over");
+      app.displayGameResult();
     } else {
       app.displayCurrentQuestion();
     }
+  },
+
+  displayGameResult: function() {
+    $("#answers").hide();
+    $("#game-result, #game-controls").show();
+    $(".progress").remove();
+
+    // Set texts
+    $("#question").text("Game Over");
+
+    if (this.gameStats.correct > this.gameStats.incorrect + this.gameStats.timeout) {
+      $("#hexagon-text").text("You win");
+    } else if (this.gameStats.correct < this.gameStats.incorrect + this.gameStats.timeout) {
+      $("#hexagon-text").text("You lose");
+    } else {
+      $("#hexagon-text").text("");
+    }
+
+    // Append stats
+    $("#game-result").append(this.statBar(this.gameStats.correct, "Correct answers", "bg-success"));
+    $("#game-result").append(
+      this.statBar(this.gameStats.incorrect, "Incorrect answers", "bg-danger")
+    );
+    if (this.gameStats.timeout > 0) {
+      $("#game-result").append(this.statBar(this.gameStats.timeout, "Timeouts", "bg-info"));
+    }
+  },
+
+  statPercentage: function(stat) {
+    return (stat / this.questions.length) * 100;
+  },
+
+  statBar: function(statValue, description, colorClass) {
+    var progress = $("<div>", {
+      class: "progress"
+    });
+
+    var width = this.statPercentage(statValue);
+
+    var progressBar = $("<div>", {
+      class: "progress-bar " + colorClass,
+      style: "width: " + width + "%",
+      role: "progressbar"
+    });
+
+    var label = $("<span>").text(description + ": " + statValue);
+
+    return progress.append(progressBar, label);
   },
 
   setCountDown: function() {
     var seconds = 10;
     this.countdownInterval = setInterval(function() {
       if (seconds > 0) {
-        $("#hexagon").text(seconds--);
+        $("#hexagon-text").html("<span>" + seconds-- + "</span>");
       } else {
         app.playSound(false);
         $("#hexagon").addClass("time-up");
-        $("#hexagon").html("Time's<br/>up");
+        $("#hexagon-text").text("Time's up");
         app.displayAnswer("timeout");
       }
     }, 1000);
