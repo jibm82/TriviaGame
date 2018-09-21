@@ -30,7 +30,6 @@ h2 {
 
 .cover-container {
   max-width: 400px;
-  perspective: 2000px;
   transform-style: preserve-3d;
 }
 
@@ -125,4 +124,30 @@ h2 {
   text-align: center;
   position: absolute;
   width: 100%;
+}
+
+/* Media queries */
+
+@media (min-width: 768px) {
+  .cover-container {
+    perspective: 1000px;
+  }
+}
+
+@media (min-width: 992px) {
+  .cover-container {
+    perspective: 1200px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cover-container {
+    perspective: 1400px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cover-container {
+    perspective: 1980px;
+  }
 }
