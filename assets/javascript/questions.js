@@ -36,8 +36,7 @@ var questions = [
     correctAnswerId: "a"
   },
   {
-    question:
-      "Who is the only person to win an Oscar for acting in a Quentin Tarantino film?",
+    question: "Who is the only person to win an Oscar for acting in a Quentin Tarantino film?",
     answers: [
       { id: "a", answer: "Uma Thurman" },
       { id: "b", answer: "Christopher Waltz" },
@@ -81,7 +80,8 @@ var questions = [
       { id: "b", answer: "Mushroom" },
       { id: "c", answer: "Potato" }
     ],
-    correctAnswerId: "a"
+    correctAnswerId: "a",
+    correctAnswerBackground: "https://media2.giphy.com/media/l46CcwlF9uJMic480/giphy.gif"
   },
   {
     question:
