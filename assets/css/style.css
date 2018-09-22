@@ -100,8 +100,8 @@ h2 {
   border-top: 20px solid #fff;
 }
 
-#hexagon.time-up #time-remaining {
-  font-size: 20px;
+#hexagon-text span {
+  font-size: 30px;
 }
 
 /* Game results styles*/

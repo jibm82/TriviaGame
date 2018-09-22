@@ -5,15 +5,15 @@ var app = {
   },
   questionsPerGame: 10,
 
-  new: function() {
+  new: function () {
     this.bindAnswersClick();
     this.bindPlayClick();
     this.bindSoundControlClick();
     this.bindAnimation();
   },
 
-  bindAnswersClick: function() {
-    $(document).on("click", ".answer", function(e) {
+  bindAnswersClick: function () {
+    $(document).on("click", ".answer", function (e) {
       var answerId = $(this).attr("data-id");
 
       $(this).removeClass("btn-light");
@@ -32,7 +32,7 @@ var app = {
     });
   },
 
-  playSound: function(correctAnswer) {
+  playSound: function (correctAnswer) {
     if ($("#sound-control").hasClass("active")) {
       if (correctAnswer) {
         app.sounds.correct.play();
@@ -42,15 +42,15 @@ var app = {
     }
   },
 
-  bindPlayClick: function() {
-    $("#play-game").click(function() {
+  bindPlayClick: function () {
+    $("#play-game").click(function () {
       $(this).text("Play again");
       app.reset();
     });
   },
 
-  bindSoundControlClick: function() {
-    $("#sound-control").click(function() {
+  bindSoundControlClick: function () {
+    $("#sound-control").click(function () {
       $(this).toggleClass("active");
 
       var oldIconClass = "fa-volume-up";
@@ -75,29 +75,29 @@ var app = {
   },
 
   bindAnimation() {
-    $(document).on("mousemove", function(e) {
+    $(document).on("mousemove", function (e) {
       var ax = -($(window).innerWidth() / 2 - e.pageX) / 30;
       var ay = ($(window).innerHeight() / 2 - e.pageY) / 80;
       $("main").attr(
         "style",
         "transform: rotateY(" +
-          ax +
-          "deg) rotateX(" +
-          ay +
-          "deg);-webkit-transform: rotateY(" +
-          ax +
-          "deg) rotateX(" +
-          ay +
-          "deg);-moz-transform: rotateY(" +
-          ax +
-          "deg) rotateX(" +
-          ay +
-          "deg)"
+        ax +
+        "deg) rotateX(" +
+        ay +
+        "deg);-webkit-transform: rotateY(" +
+        ax +
+        "deg) rotateX(" +
+        ay +
+        "deg);-moz-transform: rotateY(" +
+        ax +
+        "deg) rotateX(" +
+        ay +
+        "deg)"
       );
     });
   },
 
-  reset: function() {
+  reset: function () {
     $("#answers").show();
     $("#game-controls, #game-result").hide();
 
@@ -111,7 +111,7 @@ var app = {
     this.displayCurrentQuestion();
   },
 
-  setQuestions: function() {
+  setQuestions: function () {
     var questionIndexes = [];
     this.questions = [];
     this.currentQuestionIndex = 0;
@@ -125,17 +125,19 @@ var app = {
     }
   },
 
-  displayCurrentQuestion: function() {
+  displayCurrentQuestion: function () {
     var currentQuestion = this.questions[this.currentQuestionIndex];
     this.correctAnswerId = this.questions[app.currentQuestionIndex].correctAnswerId;
 
-    $("#question").text(currentQuestion.question);
-    $("#hexagon").removeClass("time-up");
-    $("#time-remaining").text("");
-
+    // Clean UI
+    $("#hexagon-text").text("");
     $(".answer").remove();
 
-    $.each(currentQuestion.answers, function(index, element) {
+    // Display question
+    $("#question").text(currentQuestion.question);
+
+    // Add answers
+    $.each(currentQuestion.answers, function (index, element) {
       var answer = $("<btn>")
         .addClass("btn btn-block btn-light answer")
         .text(element.answer)
@@ -146,7 +148,7 @@ var app = {
     this.setCountDown();
   },
 
-  displayAnswer: function(event) {
+  displayAnswer: function (event) {
     clearInterval(this.countdownInterval);
 
     this.gameStats[event]++;
@@ -159,12 +161,12 @@ var app = {
     setTimeout(app.afterDisplayAnswer, 1500);
   },
 
-  revealCorrectAnswer: function() {
+  revealCorrectAnswer: function () {
     var correctAnswer = $(".answer[data-id=" + this.correctAnswerId + "]");
     correctAnswer.removeClass("btn-light").addClass("btn-info");
   },
 
-  afterDisplayAnswer: function() {
+  afterDisplayAnswer: function () {
     if (app.currentQuestionIndex === app.questions.length) {
       app.displayGameResult();
     } else {
@@ -172,7 +174,7 @@ var app = {
     }
   },
 
-  displayGameResult: function() {
+  displayGameResult: function () {
     $("#answers").hide();
     $("#game-result, #game-controls").show();
     $(".progress").remove();
@@ -198,11 +200,11 @@ var app = {
     }
   },
 
-  statPercentage: function(stat) {
+  statPercentage: function (stat) {
     return (stat / this.questions.length) * 100;
   },
 
-  statBar: function(statValue, description, colorClass) {
+  statBar: function (statValue, description, colorClass) {
     var progress = $("<div>", {
       class: "progress"
     });
@@ -220,9 +222,9 @@ var app = {
     return progress.append(progressBar, label);
   },
 
-  setCountDown: function() {
+  setCountDown: function () {
     var seconds = 10;
-    this.countdownInterval = setInterval(function() {
+    this.countdownInterval = setInterval(function () {
       if (seconds > 0) {
         $("#hexagon-text").html("<span>" + seconds-- + "</span>");
       } else {
