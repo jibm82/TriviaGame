@@ -3,6 +3,7 @@ var app = {
     correct: new Audio("assets/sounds/correct.mp3"),
     incorrect: new Audio("assets/sounds/incorrect.wav")
   },
+  answersDisabled: false,
   questionsPerGame: 10,
 
   new: function () {
@@ -14,6 +15,12 @@ var app = {
 
   bindAnswersClick: function () {
     $(document).on("click", ".answer", function (e) {
+
+      // Prevent users from clicking answers when an answer has been submited or timeout took place.
+      if (app.answersDisabled) {
+        return false;
+      }
+
       var answerId = $(this).attr("data-id");
 
       $(this).removeClass("btn-light");
@@ -128,6 +135,7 @@ var app = {
   displayCurrentQuestion: function () {
     var currentQuestion = this.questions[this.currentQuestionIndex];
     this.correctAnswerId = this.questions[app.currentQuestionIndex].correctAnswerId;
+    this.answersDisabled = false;
 
     // Clean UI
     $("#hexagon-text").text("");
@@ -151,6 +159,7 @@ var app = {
   displayAnswer: function (event) {
     clearInterval(this.countdownInterval);
 
+    this.answersDisabled = true;
     this.gameStats[event]++;
     this.currentQuestionIndex++;
 
